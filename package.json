@@ -10,6 +10,7 @@
     "@sanity/image-url": "^1.0.1",
     "next": "latest",
     "next-sanity": "^0.5.2",
+    "querystring": "^0.2.1",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-hook-form": "^7.31.3",

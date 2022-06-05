@@ -3,6 +3,7 @@ import { sanityClient, urlFor } from '../../sanity'
 import Header from '../../components/Header'
 import { Post } from '../../typings'
 import PortableText from 'react-portable-text'
+import { ParsedUrlQuery } from 'querystring';
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 
@@ -15,6 +16,10 @@ interface IFormInput {
 
 interface Props {
   post: Post
+}
+
+interface Params extends ParsedUrlQuery {
+  id: string,
 }
 
 const Post = ({ post }: Props) => {
