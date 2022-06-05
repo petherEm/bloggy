@@ -1,9 +1,9 @@
 import React from 'react'
 import { sanityClient, urlFor } from '../../sanity'
+import { GetStaticProps } from 'next'
 import Header from '../../components/Header'
 import { Post } from '../../typings'
 import PortableText from 'react-portable-text'
-import { ParsedUrlQuery } from 'querystring';
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 
@@ -18,9 +18,6 @@ interface Props {
   post: Post
 }
 
-interface Params extends ParsedUrlQuery {
-  id: string,
-}
 
 const Post = ({ post }: Props) => {
   const {
@@ -163,7 +160,7 @@ const Post = ({ post }: Props) => {
   )
 }
 
-export default Post
+export default Post;
 
 export const getStaticPaths = async () => {
   const query = `*[_type == "post"] {
@@ -190,7 +187,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const query = `*[_type == "post" && slug.current == $slug][0]{
-        _ud,
+        _id,
         _createdAt,
         title,
         author-> {
