@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/bloggy/node_modules
 /.pnp
 .pnp.js
 
