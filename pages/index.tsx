@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import { sanityClient, urlFor } from '../sanity'
 import { Post } from '../typings'
 
@@ -21,16 +22,17 @@ const Home: NextPage<Props> = ({ posts }) => {
 
       <Header />
 
-      <div className="max-w-6xl mx-auto py-10">
+      <div className="max-w-6xl mx-auto lg:py-4 md:py-4">
         <div className="items-start bg-slate-900 text-white p-10">
-          <div className="px-10 space-y-5">
-            <h1 className="text-6xl max-w-xl font-serif">
+          <div className="md:px-10 space-y-5">
+            <h1 className="lg:text-6xl md:text-6xl text-4xl max-w-xl font-serif">
               <span className="underline decoration-white decoration-4">
                 I comment
               </span>{' '}
-              on the economy, payments and technology.
+              on the business, economy, payments and technology.
             </h1>
-            <h2>An attempt to bring a data-driven, rigorous academic approach and share my learning experience in programming.</h2>
+            <h2>This is an attempt to bring a data-driven, rigorous academic approach. Also an opportunity to share my programming experience.</h2>
+            <h2 className="text-gray-400">#Business #Strategy #DataScience #Python #VanillaJS #React</h2>
           </div>
         </div>
       </div>
@@ -63,6 +65,8 @@ const Home: NextPage<Props> = ({ posts }) => {
           </Link>
         ))}
       </div>
+
+      <Footer />
     </div>
   )
 }
