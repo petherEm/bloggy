@@ -18,6 +18,7 @@ const Home: NextPage<Props> = ({ posts }) => {
     <div className="h-screen bg-stone-700 text-white">
       <Head>
         <title>PM blog</title>
+        <link rel="shortcut icon" href="/logo.ico" />
       </Head>
 
       <Header />
