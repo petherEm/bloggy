@@ -12,10 +12,9 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ posts }) => {
-  console.log(posts)
 
   return (
-    <div className="h-screen bg-stone-700 text-white">
+    <div className="bg-stone-700 text-white">
       <Head>
         <title>PM blog</title>
         <link rel="shortcut icon" href="/logo.ico" />
