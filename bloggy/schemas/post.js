@@ -52,6 +52,15 @@ export default {
       type: 'blockContent',
     },
   ],
+  orderings: [
+    {
+      title: 'Publish Date Desc',
+      name: 'publishDateDesc',
+      by: [
+        {field: 'publishedAt', direction: 'desc'}
+      ]
+    },
+  ],
 
   preview: {
     select: {

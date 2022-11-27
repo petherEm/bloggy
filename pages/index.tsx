@@ -12,9 +12,8 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ posts }) => {
-
   return (
-    <div className="bg-stone-700 text-white">
+    <div className="bg-[radial-gradient(ellipse_at_right,_var(--tw-gradient-stops))] from-gray-700 to-gray-800 bg-gradient-to-r text-white h-auto min-h-screen">
       <Head>
         <title>PM blog</title>
         <link rel="shortcut icon" href="/logo.ico" />
@@ -25,48 +24,69 @@ const Home: NextPage<Props> = ({ posts }) => {
       <div className="max-w-6xl mx-auto lg:py-4 md:py-4">
         <div className="items-start bg-slate-900 text-white p-10">
           <div className="md:px-10 space-y-5">
-            <h1 className="lg:text-6xl md:text-6xl text-4xl max-w-xl font-serif">
-              <span className="underline decoration-white decoration-4">
-                I comment
+            <h1 className="lg:text-6xl md:text-4xl text-4xl max-w-2xl font-serif">
+              <span className="underline decoration-red-600 decoration-4">
+                Data-driven, rigorous personal view
               </span>{' '}
-              on the business, economy, payments and technology.
+              on Technology, Business & Finance.
             </h1>
-            <h2>This is an attempt to bring a data-driven, rigorous academic approach. Also an opportunity to share my programming experience.</h2>
-            <h2 className="text-gray-400">#Business #Strategy #DataScience #Python #VanillaJS #React</h2>
+            <h2 className="lg:text-2xl md:text-2xl text-2xl italic">
+              Also, a decent data repository.
+            </h2>
           </div>
         </div>
       </div>
 
-      {/* Posts */}
+      {/* POSTS */}
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 p-2 md:p-6">
+      <div className="max-w-6xl mx-auto mt-10">
         {posts.map((post) => (
           <Link key={post._id} href={`/post/${post.slug.current}`}>
-            <div className="group cursor-pointer overflow-hidden">
+            <div className="group cursor-pointer overflow-hidden mb-10">
+              <div className="flex flex-col justify-between p-5 bg-gray-800 rounded-lg text-white">
+                <div>
+                  <p className="xl:text-3xl md:text-lg font-bold m-2 mb-8">
+                    {post.title}
+                  </p>
+                  <p className="xl:text-2xl md:text-md text-xs m-2 tracking-wide">
+                    {post.description}
+                  </p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center mt-4 space-x-4">
+                    <img
+                      className="h-10 w-10 rounded-full object-cover"
+                      src={urlFor(post.author.image).url()!}
+                      alt=""
+                    />
+                    <p className="text-sm md:text-md ml-4">
+                      <span className="font-bold">by</span> {post.author.name}
+                    </p>
+                    <p className="hidden md:flex">
+                      published at {new Date(post._createdAt).toLocaleString()}{' '}
+                    </p>
+                  </div>
+
+                  <div className="text-sm md:text-md ml-4 bg-indigo-700 p-2 md:p-4 rounded-xl">
+                    <p className="font-bold">
+                      {post.categories.map((category) => (
+                        <span key={category.title}>#{category.title} </span>
+                      ))}
+                    </p>
+                  </div>
+                </div>
+              </div>
               <img
-                className="h-60 w-full object-cover group-hover:scale-105 transition-transform duration-200 ease-in-out"
+                className="h-80 w-full object-cover group-hover:scale-105 transition-transform duration-200 ease-in-out"
                 src={urlFor(post.mainImage).url()!}
                 alt=""
               />
-              <div className="flex justify-between p-5 bg-gray-600 text-white">
-                <div>
-                  <p className="text-lg font-bold">{post.title}</p>
-                  <p className="text-xs">
-                    {post.description} by {post.author.name}
-                  </p>
-                </div>
-                <img
-                  className="h-10 w-10 rounded-full"
-                  src={urlFor(post.author.image).url()!}
-                  alt=""
-                />
-              </div>
             </div>
           </Link>
         ))}
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }
@@ -74,14 +94,18 @@ const Home: NextPage<Props> = ({ posts }) => {
 export default Home
 
 export const getServerSideProps = async () => {
-  const query = `*[_type == "post"]{
+  const query = `*[_type == "post"] | order(_createdAt desc) {
       _id,
+      _createdAt,
       title, 
       author-> {
         name,
         image
     },
      description,
+     categories[]->{
+        title
+      },
      mainImage,
      slug
     }`

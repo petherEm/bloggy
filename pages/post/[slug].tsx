@@ -18,7 +18,6 @@ interface Props {
   post: Post
 }
 
-
 const Post = ({ post }: Props) => {
   const {
     register,
@@ -40,65 +39,89 @@ const Post = ({ post }: Props) => {
   }
 
   return (
-    <main className="h-screen bg-stone-700 text-white">
+    <main className="bg-[radial-gradient(ellipse_at_right,_var(--tw-gradient-stops))] from-gray-700 to-gray-800 bg-gradient-to-r text-white h-auto min-h-screen">
       <Header />
 
       <div className="flex justify-center items-center">
         <img
-          className="max-w-6xl w-full h-60 object-cover"
+          className="max-w-6xl w-full h-72 object-cover"
           src={urlFor(post.mainImage).url()!}
           alt=""
         />
       </div>
 
-      <article className="max-w-3xl mx-auto p-5">
-        <h1 className="text-3xl mt-10 mb-3">{post.title}</h1>
-        <h2 className="text-xl font-light text-indigo-400 mb-2">
+      <article className="max-w-6xl mx-auto p-5">
+        <h1 className="text-4xl font-bold mt-10 mb-10">{post.title}</h1>
+        <h2 className="text-2xl text-white mb-6">
           {post.description}
         </h2>
 
         <div className="flex items-center space-x-2">
           <img
-            className="h-10 w-10 rounded-full"
+            className="h-10 w-10 rounded-full object-cover"
             src={urlFor(post.author.image).url()!}
             alt=""
           />
           <p className="font-extralight text-sm">
             Blog post by{' '}
-            <span className="text-green-600">{post.author.name}</span> -
-            Published at {new Date(post._createdAt).toLocaleString()}{' '}
+            <span className="text-white font-extrabold">
+              {post.author.name}
+            </span>{' '}
+            - published at {new Date(post._createdAt).toLocaleString()}{' '}
           </p>
         </div>
 
-        <div className="mt-10 text-white">
+        <div className="mt-20 text-white">
           <PortableText
-            className=""
+            className="text-gray-200 text-xl tracking-wide leading-relaxed"
             dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
             projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!}
             content={post.body}
             serializers={{
               h1: (props: any) => (
-                <h1 className="text-2xl font-bold my-5" {...props} />
+                <h1
+                  className="text-xl md:text-3xl font-bold my-10 mt-10"
+                  {...props}
+                />
               ),
               h2: (props: any) => (
-                <h1 className="text-xl font-bold my-5" {...props} />
+                <h1 className="text-xl md:text-2xl font-semibold my-12 mt-5" {...props} />
               ),
+              normal: (props: any) => (
+                <p
+                  className="text-gray-300 text-xl tracking-wide leading-relaxed my-2 md:my-5"
+                  {...props}
+                >
+                  {props.children}
+                </p>
+              ),
+
               li: ({ children }: any) => (
                 <li className="ml-4 list-disc">{children}</li>
               ),
               link: ({ href, children }: any) => (
-                <a href={href} className="text-blue-500 hover:underline">
+                <a href={href} className="text-red-500 hover:underline">
                   {children}
                 </a>
+              ),
+              blockquote: ({ children }: any) => (
+                <blockquote className="text-[14px] md:text-[16px] border-l-4 border-gray-500 pl-4 text-green-500 italic">
+                  {children}
+                </blockquote>
+              ),
+              code: ({ children }: any) => (
+                <code className="text-[10px] md:text-[14px] bg-gray-800 p-2 rounded-lg">
+                  {children}
+                </code>
               ),
             }}
           />
         </div>
       </article>
 
-      <hr className="max-w-lg my05 mx-auto border border-yellow-500" />
+      {/* <hr className="max-w-lg my05 mx-auto border border-yellow-500" /> */}
 
-      <form
+      {/* <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col p-5 my-10 max-w-2xl mx-auto mb-10 bg-stone-700"
       >
@@ -155,12 +178,12 @@ const Post = ({ post }: Props) => {
           type="submit"
           className="shadow bg-yellow-500 hover:bg-yellow-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded cursor-pointer"
         />
-      </form>
+      </form> */}
     </main>
   )
 }
 
-export default Post;
+export default Post
 
 export const getStaticPaths = async () => {
   const query = `*[_type == "post"] {
@@ -199,6 +222,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             post._ref == ^._id &&
             approved == true],
         description,
+        categories[]->{
+          title
+        },
         mainImage,
         slug,
         body

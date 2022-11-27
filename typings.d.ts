@@ -7,6 +7,11 @@ export interface Post {
         image: string;
     },
     description: string;
+    categories: string[];
+    category: {
+        title: string;
+        description: string;
+    }
     mainImage: {
         asset: {
             url: string;
