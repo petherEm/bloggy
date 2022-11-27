@@ -10,6 +10,7 @@ export interface Post {
     categories: string[];
     category: {
         title: string;
+        name: string;
         description: string;
     }
     mainImage: {

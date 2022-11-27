@@ -64,8 +64,8 @@ export async function getServerSideProps() {
     method: 'GET',
     headers: {
       'X-BingApis-SDK': 'true',
-      'X-RapidAPI-Key': 'd92cf13a56mshbff7f35025b50bfp1e2f27jsn9fcb7acd2b10',
-      'X-RapidAPI-Host': 'bing-news-search1.p.rapidapi.com',
+      'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPID_API_KEY,
+      'X-RapidAPI-Host': process.env.NEXT_PUBLIC_RAPID_API_HOST,
     },
   }
 
