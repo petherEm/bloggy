@@ -3,7 +3,6 @@ import type { NextPage } from 'next'
 import Header from '../components/Header'
 import Headliner from '../components/Headliner'
 
-
 const PaymentsNews = ({ moneytransfers }: any) => {
   const [newsMT, setNewsMT] = useState(moneytransfers.value)
 
@@ -40,7 +39,8 @@ const PaymentsNews = ({ moneytransfers }: any) => {
                   <div className="flex items-center">
                     <img
                       src={
-                        i.provider[0].image?.thumbnail?.contentUrl || `/noimg.png`
+                        i.provider[0].image?.thumbnail?.contentUrl ||
+                        `/noimg.png`
                       }
                       alt="news"
                       className="h-8 w-8 m-2"
@@ -69,8 +69,12 @@ export async function getServerSideProps() {
     },
   }
 
+  // @ts-ignore
   const moneytransfers = await fetch(
     'https://bing-news-search1.p.rapidapi.com/news/search?q=remittance&safeSearch=Off&textFormat=Raw&freshness=Week&count=10',
+    // 👇️ ts-ignore ignores any ts errors on the next line
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     options
   )
     .then((response) => response.json())

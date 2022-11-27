@@ -9,7 +9,6 @@ import { Post } from '../typings'
 
 interface Props {
   posts: [Post]
-  
 }
 interface Category {
   title: string
@@ -72,11 +71,14 @@ const Home: NextPage<Props> = ({ posts }) => {
                   </div>
 
                   <div className="text-sm md:text-md ml-4 bg-indigo-700 p-2 md:p-4 rounded-xl">
-                    {/* <p className="font-bold">
+                    <p className="font-bold">
                       {post.categories.map((category) => (
+                        // 👇️ ts-ignore ignores any ts errors on the next line
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-ignore
                         <span key={category.title}>#{category.title} </span>
                       ))}
-                    </p> */}
+                    </p>
                   </div>
                 </div>
               </div>
